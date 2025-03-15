@@ -4,11 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.eight.travel.dto.Member;
 
-
 @Mapper
 public interface MemberDao {
-		
 	public void register(Member m) throws Exception;
+	
+	public Member login(Member m) throws Exception;
 	
 	public void updateMember(Member m) throws Exception;
 	
@@ -17,5 +17,4 @@ public interface MemberDao {
 	public boolean isEmailExists(String email);
 	
 	public boolean isNicknameExists(String nickname);
-
 }

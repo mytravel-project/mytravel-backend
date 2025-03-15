@@ -84,5 +84,4 @@ public static String aesDecrypt(String msg,byte[] key ) throws Exception {
 		    }
 		    return sb.toString();
 		} 
-	 
 }
