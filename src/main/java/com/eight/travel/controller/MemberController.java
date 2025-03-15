@@ -17,6 +17,7 @@ import com.eight.travel.service.MemberService;
 
 @RestController
 @CrossOrigin("http://127.0.0.1:5500/")
+
 public class MemberController {
 	
 	@Autowired
