@@ -32,6 +32,17 @@ public class MemberService {
 	    if (isEmailExists(email)) {
 	    	throw new Exception("이미 가입된 이메일입니다.");
 	    }
+	    
+	    //닉네임 유효성 검사
+	    String nickname = m.getNickname();
+	    if(!isValidNickname(nickname)) {
+	    	throw new Exception("닉네임은 2자리 이상 15자리 이하이며, 특수문자를 사용할 수 없습니다.");
+	    }
+	    
+	    //닉네임 중복 검사
+	    if (isNicknameExists(nickname)) {
+	    	throw new Exception("이미 존재하는 닉네임입니다.");
+	    }
 		
 		// 패스워드 유효성 검사
 	    String pwd = m.getPassword();
@@ -63,10 +74,22 @@ public class MemberService {
 		memberDao.deleteMember(email);
 	}
 	
+	//닉네임 중복 검사 메서드
+	private boolean isNicknameExists(String nickname) {
+		return memberDao.isNicknameExists(nickname);
+	}
+	
+	//닉네임 유효성 검사 메서드
+	private boolean isValidNickname(String nickname) {
+		String nicknamePattern = "^[a-zA-Z0-9가-힣]{2,15}$";
+		return Pattern.matches(nicknamePattern, nickname);
+	}
+	
+	
 	// 이메일 유효성 검사 메서드
 	private boolean isValidEmail(String email) {
 	    // 이메일 패턴
-	    String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+	    String emailPattern = "^(?!.*\\.\\.+)[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\\.[a-zA-Z]{2,6}$";
 	    return Pattern.matches(emailPattern, email);
 	}
 	
@@ -75,11 +98,10 @@ public class MemberService {
 		return memberDao.isEmailExists(email);
 	}
 
-
 	// 패스워드 유효성 검사 메서드
 	private boolean isValidPassword(String password) {
 	    // 패스워드 패턴: 8자리 이상, 숫자 포함, 특수문자 포함
-	    String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$";
+	    String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[\\S]{8,}$";
 	    return Pattern.matches(passwordPattern, password);
 	}
 

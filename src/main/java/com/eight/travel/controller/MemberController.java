@@ -10,7 +10,7 @@ import com.eight.travel.dto.Member;
 import com.eight.travel.service.MemberService;
 
 @RestController
-@CrossOrigin("http://192.168.0.38:5500/")
+@CrossOrigin("http://192.168.0.38:5500")
 public class MemberController {
 	
 	@Autowired

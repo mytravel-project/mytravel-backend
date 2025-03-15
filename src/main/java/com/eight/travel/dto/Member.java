@@ -5,17 +5,18 @@ import java.util.Date;
 public class Member {
 	
 	private int birth_year;
-	private String email, password, residence_state, residence_city, gender;
+	private String nickname, email, password, residence_state, residence_city, gender;
 	private Date created_at;
 	
 	public Member() {
 		super();
 	}
 
-	public Member(int birth_year, String email, String password, String residence_state, String residence_city,
-			String gender, Date created_at) {
+	public Member(int birth_year, String nickname, String email, String password, String residence_state,
+			String residence_city, String gender, Date created_at) {
 		super();
 		setBirth_year(birth_year);
+		setNickname(nickname);
 		setEmail(email);
 		setPassword(password);
 		setResidence_state(residence_state);
@@ -30,6 +31,14 @@ public class Member {
 
 	public void setBirth_year(int birth_year) {
 		this.birth_year = birth_year;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getEmail() {
@@ -82,9 +91,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [birth_year=" + birth_year + ", email=" + email + ", password=" + password + ", residence_state="
-				+ residence_state + ", residence_city=" + residence_city + ", gender=" + gender + ", created_at="
-				+ created_at + "]";
+		return "Member [birth_year=" + birth_year + ", nickname=" + nickname + ", email=" + email + ", password="
+				+ password + ", residence_state=" + residence_state + ", residence_city=" + residence_city + ", gender="
+				+ gender + ", created_at=" + created_at + "]";
 	}
 
 }
