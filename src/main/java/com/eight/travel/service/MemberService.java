@@ -150,7 +150,7 @@ public class MemberService {
 	// 이메일 유효성 검사 메서드
 	private boolean isValidEmail(String email) {
 	    // 이메일 패턴
-		String emailPattern = "^(?!.*\\.\\.+)[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\\.[a-zA-Z]{2,6}$";
+	    String emailPattern = "^(?!.*\\.\\.+)[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\\.[a-zA-Z]{2,6}$";
 	    return Pattern.matches(emailPattern, email);
 	}
 	
@@ -162,7 +162,8 @@ public class MemberService {
 	// 패스워드 유효성 검사 메서드
 	private boolean isValidPassword(String password) {
 	    // 패스워드 패턴: 8자리 이상, 숫자 포함, 특수문자 포함
-		String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[\\S]{8,}$";
+		  String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[\\S]{8,}$";
+
 	    return Pattern.matches(passwordPattern, password);
 	}
 
