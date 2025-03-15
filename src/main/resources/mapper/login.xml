@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eight.travel.dao.LoginDao">
+
+  <insert id="insertToken" parameterType="Login">
+  	insert into login(email, token) values(#{email},#{token})
+  </insert>
+
+</mapper>
