@@ -55,8 +55,10 @@ public class MemberController {
 		Map<String,String> responseMap = new HashMap<>();
 		
 		String email = m.getEmail();
-        if (email == null || email.trim().isEmpty()) {
-            responseMap.put("msg", "이메일을 입력하세요.");
+		String password = m.getPassword();
+		
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            responseMap.put("msg", "이메일 또는 비밀번호를 입력하세요.");
             return responseMap;
         }
         if (loginAttemptService.isBlocked(email)) {
@@ -73,6 +75,7 @@ public class MemberController {
 				
 				// 로그인 성공 시 실패 횟수 초기화
                 loginAttemptService.resetAttempts(email);
+                responseMap.put("msg", "ok");
 			}
 			else {
 				loginAttemptService.loginFailed(email);
@@ -80,7 +83,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			responseMap.put("msg", "다시 로그인 해주세요");
+			responseMap.put("msg", "로그인 실패! 이메일 또는 비밀번호를 확인하세요.");
 		}
 		return responseMap;
 	}
