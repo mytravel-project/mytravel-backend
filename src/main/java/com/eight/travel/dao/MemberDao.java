@@ -6,12 +6,15 @@ import com.eight.travel.dto.Member;
 
 @Mapper
 public interface MemberDao {
+	public void register(Member m) throws Exception;
 	
 	public Member login(Member m) throws Exception;
-	
-	public void insertMember(Member m) throws Exception;
 	
 	public void updateMember(Member m) throws Exception;
 	
 	public void deleteMember(String email) throws Exception;
+	
+	public boolean isEmailExists(String email);
+	
+	public boolean isNicknameExists(String nickname);
 }

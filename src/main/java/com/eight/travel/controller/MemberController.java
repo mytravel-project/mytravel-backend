@@ -24,6 +24,19 @@ public class MemberController {
 	
 	@Autowired
 	LoginAttemptService loginAttemptService;
+
+	@PostMapping("/register")
+	public String insertMember(@RequestBody Member m) {
+		System.out.println(m);
+		try {
+			memberService.insertMember(m);
+			return "환영합니다";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "회원 가입 실패";
+		}
+	}
 	
 	@PostMapping("logout")
 	public void logout(@RequestHeader String authorization) {
@@ -39,7 +52,7 @@ public class MemberController {
 	public Map<String,String> tokenLogin(@RequestBody Member m) {
 		System.out.println(m);
 		
-		Map<String,String> responseMap=new HashMap<>();
+		Map<String,String> responseMap = new HashMap<>();
 		
 		String email = m.getEmail();
         if (email == null || email.trim().isEmpty()) {
@@ -70,18 +83,6 @@ public class MemberController {
 			responseMap.put("msg", "다시 로그인 해주세요");
 		}
 		return responseMap;
-	}
-	
-	@PostMapping("insertMember")
-	public String insertMember(@RequestBody Member m) {
-		System.out.println(m);
-		try {
-			memberService.insertMember(m);
-			return m.getEmail()+"님 가입을 환영합니다";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "회원 가입 실패";
-		}
 	}
 	
 	@PostMapping("updateMember")

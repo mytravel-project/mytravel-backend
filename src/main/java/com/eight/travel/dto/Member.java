@@ -3,9 +3,10 @@ package com.eight.travel.dto;
 import java.util.Date;
 
 public class Member {
-	private String nickname, email, password, residence_state, residence_city, gender;
 	private int birth_year;
-	
+
+	private String nickname, email, password, residence_state, residence_city, gender;
+	private Date created_at;
 	
     private int failedAttempts; // 로그인 실패 횟수 추가
     private boolean accountNonLocked = true; // 계정 잠금 여부
@@ -101,5 +102,4 @@ public class Member {
     public void setLockTime(Date lockTime) { 
     	this.lockTime = lockTime; 
     }
-	
 }

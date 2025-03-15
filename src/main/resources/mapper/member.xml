@@ -4,14 +4,21 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.eight.travel.dao.MemberDao">
-
   <select id="login" resultType="Member" parameterType="Member" >
     select * from member where email=#{email} and password=#{password}
   </select>
   
-  <insert id="insertMember" parameterType="Member">
-  	insert into member(email, password, birth_year, residence_state, residence_city, gender) values(#{email}, #{password}, #{birth_year}, #{residence_state}, #{residence_city}, #{gender});
+  <insert id="register" parameterType="Member">
+  	insert into member(nickname, email, password, birth_year, residence_state, residence_city, gender) values(#{nickname},#{email},#{password},#{birth_year},#{residence_state},#{residence_city}, #{gender})
   </insert>
+  
+  <select id="isEmailExists" parameterType="String" resultType="Boolean">
+  	select count(*) > 0 from member where email = #{email}
+  </select>
+  
+  <select id="isNicknameExists" parameterType="String" resultType="Boolean">
+  	select count(*) > 0 from member where nickname = #{nickname}
+  </select>
   
   <update id="updateMember" parameterType="Member">
   	update member set nickname=#{nickname} where email=#{email} and password=#{password}
