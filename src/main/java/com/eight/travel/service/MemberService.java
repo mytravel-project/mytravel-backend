@@ -77,7 +77,7 @@ public class MemberService {
 	}
 	
 	public void insertMember(Member m) throws Exception {
-
+		
 		// 이메일 유효성 검사
 		String email = m.getEmail();
 	    if (!isValidEmail(email)) {
@@ -114,12 +114,16 @@ public class MemberService {
 		byte[] originalHash = OpenCrypt.getSHA256(pwd, salt);
 		//3. db에 저장하기 좋은 포맷으로 인코딩한다
 		String pwdHash=OpenCrypt.byteArrayToHex(originalHash);
-		System.out.println("pwdHash : "+pwdHash);
+		System.out.println("pwdHash : "+ pwdHash);
 	    
 		m.setPassword(pwdHash);
 	    
 		saltDao.insertSalt(new SaltInfo(email, salt, new Date()));
 		memberDao.register(m);
+		
+		System.out.println(m.getBirth_year());
+		System.out.println(m.getResidence_state());
+		System.out.println(m.getResidence_city());
 	}
 	
 	public void updateMember(Member m) throws Exception {
@@ -136,7 +140,7 @@ public class MemberService {
 	}
 
 	//닉네임 중복 검사 메서드
-	private boolean isNicknameExists(String nickname) {
+	public boolean isNicknameExists(String nickname) {
 		return memberDao.isNicknameExists(nickname);
 	}
 	
@@ -155,14 +159,14 @@ public class MemberService {
 	}
 	
 	//이메일 중복 검사 메서드
-	private boolean isEmailExists(String email) {
+	public boolean isEmailExists(String email) {
 		return memberDao.isEmailExists(email);
 	}
 	
 	// 패스워드 유효성 검사 메서드
 	private boolean isValidPassword(String password) {
 	    // 패스워드 패턴: 8자리 이상, 숫자 포함, 특수문자 포함
-		  String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[\\S]{8,}$";
+		  String passwordPattern = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$";
 
 	    return Pattern.matches(passwordPattern, password);
 	}

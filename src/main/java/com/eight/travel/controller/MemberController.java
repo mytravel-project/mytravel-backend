@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import com.eight.travel.service.LoginAttemptService;
 import com.eight.travel.service.MemberService;
 
 @RestController
-@CrossOrigin("http://127.0.0.1:5500/")
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://192.168.0.38:5500"})
 
 public class MemberController {
 	
@@ -36,7 +37,30 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "회원 가입 실패";
-		}
+		}  
+
+	}
+	
+	@PostMapping("isEmailExists")
+	public ResponseEntity<Map<String, Boolean>> isEmailExists(@RequestBody Member m) {
+		String email = m.getEmail();
+		boolean exists = memberService.isEmailExists(email);
+		
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("exists", exists);
+		
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("isNicknameExists")
+	public ResponseEntity<Map<String, Boolean>> isNicknameExists(@RequestBody Member m) {
+		String nickname = m.getNickname();
+		boolean exists = memberService.isNicknameExists(nickname);
+		
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("exists", exists);
+		
+		return ResponseEntity.ok(response);
 	}
 	
 	@PostMapping("logout")
