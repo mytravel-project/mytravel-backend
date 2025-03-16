@@ -27,4 +27,8 @@
   <delete id="deleteMember" parameterType="String">
   	delete from member where email=#{email}
   </delete>
+  
+  <select id="findByEmail" parameterType="String" resultType="Member">
+  	select * from member where email=#{email};
+  </select>
 </mapper>

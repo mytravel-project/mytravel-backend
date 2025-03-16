@@ -17,4 +17,6 @@ public interface MemberDao {
 	public boolean isEmailExists(String email);
 	
 	public boolean isNicknameExists(String nickname);
+
+	public Member findByEmail(String email);
 }
