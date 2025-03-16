@@ -75,15 +75,43 @@ public class LikeController {
 	}
 
 	@PostMapping("deleteLike")
-	public Map<String, String> deleteLike(@RequestBody Like like) {
-		System.out.println(like.getUserEmail() + "가" + like.getPlaceId() + "의 좋아요 삭제 시도");
+	public Map<String, String> deleteLike(@RequestHeader String authorization, @RequestBody Like like) {
+		System.out.println(authorization);
+		System.out.println(like);
 		
 		Map<String, String> response = new HashMap<>();
 		
 		try {
+			Login loginInfo = memberService.checkToken(authorization);
+			
+			if(loginInfo == null) {
+				response.put("message", "유효하지 않은 토큰입니다.");
+				return response;
+			}
+			
+			long now = System.currentTimeMillis(); //현재 시간
+			long lastRequestTime =  (loginInfo.getLogin_time() != null) ? loginInfo.getLogin_time().getTime() : 0; //DB에서 가져온 로그인 시간
+			long interval = now - lastRequestTime; //now와 lastRequestTime 비교
+			System.out.println("interval: " + interval);
+				
+			
+			if(interval > 1800000) {
+				response.put("message", "로그인이 만료되었습니다. 다시 로그인하세요.");
+				return response;
+			}
+			
+			like.setUserEmail(loginInfo.getEmail());	
+			
+			boolean isLiked = likeService.checkMyPlaceLike(like);
+			if(!isLiked) {
+				response.put("message", "좋아요를 누른 적이 없습니다.");
+				return response;
+			}
+			
 			likeService.deleteLike(like);
 			response.put("message", "좋아요가 취소되었습니다.");
 			return response;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.put("message", "서버 오류가 발생했습니다. 상세 오류: " + e.getMessage());
