@@ -120,10 +120,7 @@ public class MemberService {
 	    
 		saltDao.insertSalt(new SaltInfo(email, salt, new Date()));
 		memberDao.register(m);
-		
-		System.out.println(m.getBirth_year());
-		System.out.println(m.getResidence_state());
-		System.out.println(m.getResidence_city());
+
 	}
 	
 	public void updateMember(Member m) throws Exception {
@@ -149,7 +146,6 @@ public class MemberService {
 		String nicknamePattern = "^[a-zA-Z0-9가-힣]{2,15}$";
 		return Pattern.matches(nicknamePattern, nickname);
 	}
-	
 	
 	// 이메일 유효성 검사 메서드
 	private boolean isValidEmail(String email) {

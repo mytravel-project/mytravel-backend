@@ -5,6 +5,10 @@
   
 <mapper namespace="com.eight.travel.dao.LoginDao">
 
+  <select id="checkToken" parameterType="String" resultType="Login">
+  	select * from login where token=#{token}
+  </select>
+
   <insert id="insertToken" parameterType="Login">
   	insert into login(email, token) values(#{email},#{token})
   </insert>
