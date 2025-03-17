@@ -167,4 +167,8 @@ public class MemberService {
 	    return Pattern.matches(passwordPattern, password);
 	}
 
+	public String getNicknameByEmail(String email) {
+	    Member member = memberDao.findByEmail(email);
+	    return member != null ? member.getNickname() : null;
+	}
 }
