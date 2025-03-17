@@ -92,7 +92,7 @@ public class MemberController {
 			Login loginInfo = memberService.tokenLogin(m);
 			
 			if(loginInfo != null && loginInfo.getEmail() != null && loginInfo.getToken() != null) {
-				responseMap.put("email", loginInfo.getEmail());
+				responseMap.put("nickname", memberService.getNicknameByEmail(loginInfo.getEmail()));
 				responseMap.put("Authorization", loginInfo.getToken());
 				
 				// 로그인 성공 시 실패 횟수 초기화
