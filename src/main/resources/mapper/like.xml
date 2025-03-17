@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eight.travel.dao.LikeDao">
+  
+  <insert id="recordLike" parameterType="com.eight.travel.dto.Like">
+  	INSERT INTO like_record (user_email, place_id, created_at)
+	VALUES (#{userEmail}, #{placeId}, NOW())
+	ON DUPLICATE KEY UPDATE created_at = NOW();
+  </insert>  
+  
+  <delete id="deleteLike" parameterType="com.eight.travel.dto.Like">
+  	delete from like_record where user_email=#{userEmail} and place_id=#{placeId}
+  </delete>
+  
+  <select id="checkMyPlaceLike" parameterType="com.eight.travel.dto.Like" resultType="Boolean">
+  	select count(*) > 0 from like_record where user_email = #{userEmail} and place_id = #{placeId}
+  </select>
+  
+</mapper>
