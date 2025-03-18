@@ -15,5 +15,5 @@ public interface ReviewDao {
 	
 	public void updateReview(Review r) throws Exception;
 	
-	public void deleteReview(String email) throws Exception; 
+	public void deleteReview(Review r) throws Exception; 
 }
