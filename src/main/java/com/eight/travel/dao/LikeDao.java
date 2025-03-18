@@ -12,5 +12,7 @@ public interface LikeDao {
 	public boolean checkMyPlaceLike(Like like);
 	
 	public void deleteLike(Like like) throws Exception;
+	
+	public void toggleLike(Like like) throws Exception;
 
 }
