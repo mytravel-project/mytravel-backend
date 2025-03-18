@@ -27,7 +27,7 @@
 	    where id = #{id} and user_email = #{userEmail};
 	</update>
 	
-	<delete id="deleteReview" parameterType="String">
-	  	delete from review where user_email=#{email}
+	<delete id="deleteReview" parameterType="Review">
+	  	delete from review where user_email=#{userEmail} and id =#{id}
 	</delete>
 </mapper>

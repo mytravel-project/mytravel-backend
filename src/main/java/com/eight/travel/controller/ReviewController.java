@@ -88,7 +88,8 @@ public class ReviewController {
 		        long interval = now - lastRequestTime;
 		        
 		        if(interval <= 1800000) {// 30분이 지나지 않았다면
-		        	reviewService.deleteReview(loginInfo.getEmail());
+		        	r.setUserEmail(loginInfo.getEmail());
+		        	reviewService.deleteReview(r);
 		        }
 	    	}
 	    } catch (Exception e) {

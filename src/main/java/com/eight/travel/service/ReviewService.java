@@ -25,7 +25,7 @@ public class ReviewService {
         reviewDao.updateReview(r);
     }
     
-    public void deleteReview(String email) throws Exception {
-        reviewDao.deleteReview(email);
+    public void deleteReview(Review r) throws Exception {
+        reviewDao.deleteReview(r);
     }
 }
