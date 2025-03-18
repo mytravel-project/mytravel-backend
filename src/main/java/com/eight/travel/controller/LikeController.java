@@ -28,21 +28,35 @@ public class LikeController {
 	LikeService likeService;
 	
 	@PostMapping("checkMyPlaceLike")
-	public Map<String, Boolean> checkMyPlaceLike(@RequestBody Like like) {
+	public Map<String, Boolean> checkMyPlaceLike(@RequestHeader String authorization, @RequestBody Like like) {
+	    Map<String, Boolean> response = new HashMap<>();
 
-		Map<String, Boolean> response = new HashMap<>();
-		
-		try {
-			boolean isLiked = likeService.checkMyPlaceLike(like);
-			response.put("isLiked", isLiked);
-			return response;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.put("isLiked", false);
-			return response;
-		}
-		
+	    try {
+
+	        Login loginInfo = memberService.checkToken(authorization);
+	        if (loginInfo == null) {
+	            response.put("isLiked", false);
+	            return response;
+	        }
+
+	        like.setUserEmail(loginInfo.getEmail());
+	        
+	        //장소 체크
+	        if (like.getPlaceId() == 0 || like.getPlaceId() <= 0 ) {
+	            response.put("isLiked", false);
+	            return response;
+	        }
+
+	        boolean isLiked = likeService.checkMyPlaceLike(like);
+	        response.put("isLiked", isLiked);
+
+	        return response;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.put("isLiked", false);
+	        return response;
+	    }
 	}
 	
 	@PostMapping("toggleLike")
