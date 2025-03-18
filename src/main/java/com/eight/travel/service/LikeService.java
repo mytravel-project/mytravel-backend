@@ -23,5 +23,9 @@ public class LikeService {
 	public boolean checkMyPlaceLike(Like like) throws Exception { //좋아요 존재 여부
 		return likeDao.checkMyPlaceLike(like);
 	}
+	
+	public void toggleLike(Like like) throws Exception { //좋아요 취소
+		likeDao.toggleLike(like);
+	}
 
 }
