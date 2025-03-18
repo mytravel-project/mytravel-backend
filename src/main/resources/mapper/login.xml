@@ -12,5 +12,9 @@
   <insert id="insertToken" parameterType="Login">
   	insert into login(email, token) values(#{email}, #{token})
   </insert>
+  
+  <delete id="deleteToken" parameterType="String">
+	delete from login where token=#{token}
+	</delete>
 
 </mapper>
