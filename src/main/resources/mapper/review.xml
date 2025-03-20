@@ -13,7 +13,7 @@
 	        created_at as createdAt, 
 	        updated_at as updatedAt
 	    from review 
-	    where place_id = #{placeId}
+	    where place_id = #{placeId} order by updated_at desc
  	</select>
 
 	<insert id="insertReview" parameterType="com.eight.travel.dto.Review">
